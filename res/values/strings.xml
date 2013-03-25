@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FieldCommander</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">FieldCommander</string>
+    <string name="title_activity_list_games">Games</string>
+    <string name="action_settings">Settings</string>
+    <string name="games">Games</string>
+
+</resources>
