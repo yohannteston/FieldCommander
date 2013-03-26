@@ -11,7 +11,7 @@ import fr.apa.fieldcommander.webservice.WebService.WebServiceResponse;
 
 public class JSON2JavaBeanWrapper<T> {
 
-	public WebServiceResponse<T> wrapWebServiceResponse(JSONObject json, T bean)
+	public WebServiceResponse<T> wrapResponse(JSONObject json, T bean)
 			throws NoSuchMethodException, IllegalArgumentException,
 			IllegalAccessException, InvocationTargetException, JSONException {
 

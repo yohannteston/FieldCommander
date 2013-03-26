@@ -50,10 +50,8 @@ public class WebService {
 			JSONException {
 		final String wsResponse = resolveWebservice(requestType, parameter);
 
-		new JSON2JavaBeanWrapper<T>().updateBean(new JSONObject(wsResponse),
-				parameter);
-
-		return new WebServiceResponse<T>();
+		return new JSON2JavaBeanWrapper<T>().wrapResponse(new JSONObject(
+				wsResponse), parameter);
 	}
 
 	private static <T> String resolveWebservice(RequestType requestType, T bean)
