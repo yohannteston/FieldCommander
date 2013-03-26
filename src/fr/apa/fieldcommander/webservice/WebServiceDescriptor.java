@@ -4,7 +4,8 @@ import java.util.List;
 
 public class WebServiceDescriptor {
 
-	public WebServiceDescriptor(WebServiceDescriptorKey wsKey, String url, List<String> properties) {
+	public WebServiceDescriptor(WebServiceDescriptorKey wsKey, String url,
+			List<String> properties) {
 		super();
 		this.wsKey = wsKey;
 		this.url = url;
@@ -18,11 +19,11 @@ public class WebServiceDescriptor {
 	public List<String> getProperties() {
 		return properties;
 	}
-	
+
 	public WebServiceDescriptorKey getWsKey() {
 		return wsKey;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -67,7 +68,7 @@ public class WebServiceDescriptor {
 
 		private RequestType requestType;
 		private Class<?> parameterClass;
-		
+
 		public Class<?> getParameterClass() {
 			return parameterClass;
 		}

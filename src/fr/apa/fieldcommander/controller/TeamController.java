@@ -11,21 +11,15 @@ import fr.apa.fieldcommander.model.Team;
 import fr.apa.fieldcommander.webservice.JSONCallBack;
 import fr.apa.fieldcommander.webservice.RequestType;
 import fr.apa.fieldcommander.webservice.WebService;
-import fr.apa.fieldcommander.webservice.WebService.WebServiceResponse;
 
 public class TeamController extends Observable {
 
-	public Team getTeam(Team team) throws IllegalArgumentException,
+	public void retrieveTeam(String id) throws IllegalArgumentException,
 			ClientProtocolException, NoSuchMethodException,
 			IllegalAccessException, InvocationTargetException, IOException,
 			JSONException {
-		WebServiceResponse<Team> response = WebService.execute(
-				RequestType.RETRIEVE, team);
-
-		if (!response.isSuccess())
-			// TODO
-			throw new IllegalStateException(response.getError());
-		return response.getBean();
+		WebService
+				.request(RequestType.RETRIEVE, id, new RetrieveTeamCallBack());
 	}
 
 	public class RetrieveTeamCallBack implements JSONCallBack<Team> {
