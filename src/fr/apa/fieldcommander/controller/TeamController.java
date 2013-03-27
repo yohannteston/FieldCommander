@@ -8,9 +8,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
 import fr.apa.fieldcommander.model.Team;
-import fr.apa.fieldcommander.webservice.JSONCallBack;
-import fr.apa.fieldcommander.webservice.RequestType;
-import fr.apa.fieldcommander.webservice.WebService;
+import fr.apa.fieldcommander.webservice.WebServiceCallBack;
+import fr.apa.fieldcommander.webservice.WebServiceId;
+import fr.apa.fieldcommander.webservice.WebServiceRequest;
+import fr.apa.fieldcommander.webservice.WebServiceResponse;
 
 public class TeamController extends Observable {
 
@@ -18,15 +19,16 @@ public class TeamController extends Observable {
 			ClientProtocolException, NoSuchMethodException,
 			IllegalAccessException, InvocationTargetException, IOException,
 			JSONException {
-		WebService
-				.request(RequestType.RETRIEVE, id, new RetrieveTeamCallBack());
+		new WebServiceRequest<String, Team>().perform(
+				WebServiceId.RETRIEVE_TEAM, id, new RetrieveTeamCallBack());
 	}
 
-	public class RetrieveTeamCallBack implements JSONCallBack<Team> {
+	public class RetrieveTeamCallBack implements WebServiceCallBack<Team> {
 
 		@Override
-		public void execute(Team object) {
+		public void execute(WebServiceResponse<Team> object) {
 			TeamController.this.notifyObservers();
+
 		}
 	}
 

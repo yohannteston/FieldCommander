@@ -7,13 +7,15 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.apa.fieldcommander.webservice.WebService.WebServiceResponse;
 
 public class JSON2JavaBeanWrapper<T> {
 
-	public WebServiceResponse<T> wrapResponse(JSONObject json, T bean)
+	public WebServiceResponse<T> wrapResponse(JSONObject json, Class<T> clazz)
 			throws NoSuchMethodException, IllegalArgumentException,
-			IllegalAccessException, InvocationTargetException, JSONException {
+			IllegalAccessException, InvocationTargetException, JSONException,
+			InstantiationException {
+
+		final T bean = clazz.newInstance();
 
 		final WebServiceResponse<T> response = new WebServiceResponse<T>();
 
