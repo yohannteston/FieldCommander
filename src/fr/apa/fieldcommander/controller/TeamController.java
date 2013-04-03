@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
 import fr.apa.fieldcommander.model.Team;
+import fr.apa.fieldcommander.utils.AccountIDHolder;
 import fr.apa.fieldcommander.webservice.WebServiceCallBack;
 import fr.apa.fieldcommander.webservice.WebServiceId;
 import fr.apa.fieldcommander.webservice.WebServiceRequest;
@@ -19,6 +20,8 @@ public class TeamController extends Observable {
 			ClientProtocolException, NoSuchMethodException,
 			IllegalAccessException, InvocationTargetException, IOException,
 			JSONException {
+		// TODO remove it
+		AccountIDHolder.setAccountID(1);
 		new WebServiceRequest<String, Team>().perform(
 				WebServiceId.RETRIEVE_TEAM, id, new RetrieveTeamCallBack());
 	}
@@ -27,8 +30,9 @@ public class TeamController extends Observable {
 
 		@Override
 		public void execute(WebServiceResponse<Team> object) {
-			TeamController.this.notifyObservers();
-
+			System.out.println("Callback");
+			TeamController.this.setChanged();
+			TeamController.this.notifyObservers(object);
 		}
 	}
 

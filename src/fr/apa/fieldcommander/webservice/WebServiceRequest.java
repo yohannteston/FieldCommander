@@ -15,17 +15,20 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 
 import fr.apa.fieldcommander.model.Team;
+import fr.apa.fieldcommander.utils.AccountIDHolder;
 
 public class WebServiceRequest<Parameter, Result> {
 
-	private static final String WS_URL = "http://arnaudportfolio.free.fr/fieldcommander/";
+	// private static final String WS_URL =
+	// "http://arnaudportfolio.free.fr/fieldcommander/";
+	private static final String WS_URL = "http://127.0.0.1/fieldcommander/";
 	private static Map<WebServiceId, WebServiceDescriptor<?, ?>> WS_DESCRIPTORS;
 
 	static {
 		WS_DESCRIPTORS = new HashMap<WebServiceId, WebServiceDescriptor<?, ?>>();
 
 		final WebServiceDescriptor<String, Team> retrieveTeam = new WebServiceDescriptor<String, Team>(
-				WebServiceId.RETRIEVE_TEAM, "wsTeam.php?Action=Get",
+				WebServiceId.RETRIEVE_TEAM, "wsTeam.php?Action=get",
 				String.class, buildMap("TeamID", null), Team.class);
 
 		;
@@ -66,7 +69,7 @@ public class WebServiceRequest<Parameter, Result> {
 
 		NameValuePair pairs[];
 		int i = 0;
-		pairs = new NameValuePair[wsDesc.getProperties().values().size()];
+		pairs = new NameValuePair[wsDesc.getProperties().values().size() + 1];
 		for (Entry<String, String> parameter : wsDesc.getProperties()
 				.entrySet()) {
 
@@ -84,6 +87,8 @@ public class WebServiceRequest<Parameter, Result> {
 			}
 			pairs[i++] = new BasicNameValuePair(wsParameter, parameterValue);
 		}
+		pairs[i] = new BasicNameValuePair("AccountID",
+				String.valueOf(AccountIDHolder.getAccountID()));
 
 		return buildUrl(pairs, wsDesc.getUrl());
 	}
