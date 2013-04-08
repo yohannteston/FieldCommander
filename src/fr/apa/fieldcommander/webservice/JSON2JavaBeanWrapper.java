@@ -54,28 +54,33 @@ public class JSON2JavaBeanWrapper<T> {
 
 		final Iterator<String> keysIt = json.keys();
 		while (keysIt.hasNext()) {
-			String key = keysIt.next();
+			String oKey = keysIt.next();
 
-			key = toCamelCase(key);
+			String key = toCamelCase(oKey);
 
-			Object v = json.get(key);
+			Object v = json.get(oKey);
 
 			final String readProperty = "get" + key;
 			final String writeProperty = "set" + key;
 
-			final Method readMethod = parent.getClass().getDeclaredMethod(
-					readProperty, (Class<?>) null);
-			final Class<?> type = readMethod.getReturnType();
-
-			final Method writeMethod = parent.getClass().getDeclaredMethod(
-					writeProperty, v.getClass());
-
 			Object child = null;
 			if (v instanceof JSONObject) {
+
+				final Method readMethod = parent.getClass().getDeclaredMethod(
+						readProperty, (Class<?>) null);
+				final Class<?> type = readMethod.getReturnType();
+
+				final Method writeMethod = parent.getClass().getDeclaredMethod(
+						writeProperty, type);
+
 				child = type.newInstance();
 				write((JSONObject) v, child);
 				writeMethod.invoke(parent, child);
 			} else {
+
+				final Method writeMethod = parent.getClass().getDeclaredMethod(
+						writeProperty, v.getClass());
+
 				writeMethod.invoke(parent, v);
 			}
 		}

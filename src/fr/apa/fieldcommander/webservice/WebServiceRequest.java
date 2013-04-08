@@ -21,7 +21,7 @@ public class WebServiceRequest<Parameter, Result> {
 
 	// private static final String WS_URL =
 	// "http://arnaudportfolio.free.fr/fieldcommander/";
-	private static final String WS_URL = "http://127.0.0.1/fieldcommander/";
+	private static final String WS_URL = "http://10.0.2.2/fieldcommander/";
 	private static Map<WebServiceId, WebServiceDescriptor<?, ?>> WS_DESCRIPTORS;
 
 	static {
